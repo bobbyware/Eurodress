@@ -1,0 +1,8 @@
+﻿Group: Widgets
+FriendlyName: Html block
+SystemName: Widgets.HtmlBlock
+Version: 1.0
+SupportedVersions: 3.50
+Author: Roland
+DisplayOrder: 1
+FileName: Nop.Plugin.Widgets.HtmlBlock.dll

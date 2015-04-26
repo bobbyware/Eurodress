@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "";
+}
+@model Nop.Plugin.Widgets.HtmlBlock.Models.ConfigurationModel
+@using Nop.Web.Framework;
+
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+
+@using (Html.BeginForm())
+{
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">                
+                @Html.NopLabelFor(model => model.HtmlContents):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.HtmlContents)
+                @Html.ValidationMessageFor(model => model.HtmlContents)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="save" class="k-button" value="@T("Admin.Common.Save")" />
+            </td>
+        </tr>
+    </table>
+
+}
