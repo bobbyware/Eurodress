@@ -24,3 +24,12 @@ h2.product-title > a {
 	font-size:14px !important;
 	
 }
+
+@media (max-width: 767px) {
+	div.shipping-icon {
+		display:none;
+	}
+	div.html-block {		
+		display:none;
+	}
+}

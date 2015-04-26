@@ -10,5 +10,6 @@ namespace Nop.Plugin.Widgets.HtmlBlock.Models
 	public class HtmlBlockModel : BaseNopModel
 	{
 		public string HtmlContents { get; set; }
+		/* TODO: Mobile css */
 	}
 }
