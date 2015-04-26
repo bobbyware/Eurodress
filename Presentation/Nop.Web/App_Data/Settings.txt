@@ -1,0 +1,2 @@
+DataProvider: sqlserver
+DataConnectionString: Data Source=ROLAND-PC\EURODRESS;Initial Catalog=nopcommerce;Integrated Security=True;Persist Security Info=False

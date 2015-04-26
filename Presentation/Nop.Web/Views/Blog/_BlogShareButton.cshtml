@@ -1,0 +1,9 @@
+﻿@model BlogPostModel
+@using Nop.Web.Models.Blogs;
+
+@if (!String.IsNullOrWhiteSpace(Model.PageShareCode))
+{
+    <div class="product-share-button">
+        @Html.Raw(Model.PageShareCode)
+    </div>
+}
