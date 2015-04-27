@@ -1,6 +1,7 @@
 ﻿@model BlogPostListModel
 @using Nop.Web.Extensions;
 @using Nop.Web.Models.Blogs;
+@using Nop.Core;
 @{
     Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
 
@@ -52,7 +53,7 @@
                         </div>
                     </div>
                     <div class="post-body">
-                        @Html.Raw(item.Body)
+                        @Html.Raw(@CommonHelper.EnsureMaximumLength(item.Body, 300, "..."))
                     </div>
                     @if (item.Tags.Count > 0)
                     {

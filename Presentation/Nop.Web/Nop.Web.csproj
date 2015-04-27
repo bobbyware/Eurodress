@@ -2018,7 +2018,6 @@
     <Content Include="Views\Customer\_CustomerAttributes.cshtml" />
     <Content Include="Views\Shared\_AddressAttributes.cshtml" />
     <Content Include="Views\Product\_RentalInfo.cshtml" />
-    <Content Include="Views\Blog\_BlogShareButton.cshtml" />
     <Content Include="Themes\NopRoot\Content\bootstrap-3.2.0\css\bootstrap-theme.css.map" />
     <Content Include="Themes\NopRoot\Content\bootstrap-3.2.0\css\bootstrap.css.map" />
     <Content Include="Themes\NopRoot\Content\bootstrap-3.2.0\fonts\glyphicons-halflings-regular.eot" />

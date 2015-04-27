@@ -605,42 +605,46 @@ namespace Nop.Web.Controllers
                 if (attribute.ShouldHaveValues())
                 {
                     //values
-                    var attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
-                    foreach (var attributeValue in attributeValues)
-                    {
-                        var valueModel = new ProductDetailsModel.ProductAttributeValueModel
-                        {
-                            Id = attributeValue.Id,
-                            Name = attributeValue.GetLocalized(x => x.Name),
-                            ColorSquaresRgb = attributeValue.ColorSquaresRgb, //used with "Color squares" attribute type
-                            IsPreSelected = attributeValue.IsPreSelected
-                        };
-                        attributeModel.Values.Add(valueModel);
+                    //var attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
+					var attributeCombinations = product.ProductAttributeCombinations.Where(c => c.StockQuantity > 0).Select(c => _productAttributeParser.ParseProductAttributeValues(c.AttributesXml).FirstOrDefault()).ToList().OrderBy(a => a.Name);
+					if (attributeCombinations.Count() > 0)
+					{
+						foreach (var attributeValue in attributeCombinations)
+						{							
+							var valueModel = new ProductDetailsModel.ProductAttributeValueModel
+							{
+								Id = attributeValue.Id,
+								Name = attributeValue.GetLocalized(x => x.Name),
+								ColorSquaresRgb = attributeValue.ColorSquaresRgb, //used with "Color squares" attribute type
+								IsPreSelected = attributeValue.IsPreSelected
+							};
+							attributeModel.Values.Add(valueModel);
 
-                        //display price if allowed
-                        if (_permissionService.Authorize(StandardPermissionProvider.DisplayPrices))
-                        {
-                            decimal taxRate;
-                            decimal attributeValuePriceAdjustment = _priceCalculationService.GetProductAttributeValuePriceAdjustment(attributeValue);
-                            decimal priceAdjustmentBase = _taxService.GetProductPrice(product, attributeValuePriceAdjustment, out taxRate);
-                            decimal priceAdjustment = _currencyService.ConvertFromPrimaryStoreCurrency(priceAdjustmentBase, _workContext.WorkingCurrency);
-                            if (priceAdjustmentBase > decimal.Zero)
-                                valueModel.PriceAdjustment = "+" + _priceFormatter.FormatPrice(priceAdjustment, false, false);
-                            else if (priceAdjustmentBase < decimal.Zero)
-                                valueModel.PriceAdjustment = "-" + _priceFormatter.FormatPrice(-priceAdjustment, false, false);
+							//display price if allowed
+							if (_permissionService.Authorize(StandardPermissionProvider.DisplayPrices))
+							{
+								decimal taxRate;
+								decimal attributeValuePriceAdjustment = _priceCalculationService.GetProductAttributeValuePriceAdjustment(attributeValue);
+								decimal priceAdjustmentBase = _taxService.GetProductPrice(product, attributeValuePriceAdjustment, out taxRate);
+								decimal priceAdjustment = _currencyService.ConvertFromPrimaryStoreCurrency(priceAdjustmentBase, _workContext.WorkingCurrency);
+								if (priceAdjustmentBase > decimal.Zero)
+									valueModel.PriceAdjustment = "+" + _priceFormatter.FormatPrice(priceAdjustment, false, false);
+								else if (priceAdjustmentBase < decimal.Zero)
+									valueModel.PriceAdjustment = "-" + _priceFormatter.FormatPrice(-priceAdjustment, false, false);
 
-                            valueModel.PriceAdjustmentValue = priceAdjustment;
-                        }
+								valueModel.PriceAdjustmentValue = priceAdjustment;
+							}
 
-                        //picture
-                        var valuePicture = _pictureService.GetPictureById(attributeValue.PictureId);
-                        if (valuePicture != null)
-                        {
-                            valueModel.PictureUrl = _pictureService.GetPictureUrl(valuePicture, defaultPictureSize);
-                            valueModel.FullSizePictureUrl = _pictureService.GetPictureUrl(valuePicture);
-                            valueModel.PictureId = valuePicture.Id;
-                        }
-                    }
+							//picture
+							var valuePicture = _pictureService.GetPictureById(attributeValue.PictureId);
+							if (valuePicture != null)
+							{
+								valueModel.PictureUrl = _pictureService.GetPictureUrl(valuePicture, defaultPictureSize);
+								valueModel.FullSizePictureUrl = _pictureService.GetPictureUrl(valuePicture);
+								valueModel.PictureId = valuePicture.Id;
+							}
+						}
+					}
                 }
 
                 //set already selected attributes (if we're going to update the existing shopping cart item)
