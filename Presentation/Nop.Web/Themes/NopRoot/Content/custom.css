@@ -25,6 +25,18 @@ h2.product-title > a {
 	
 }
 
+#mce-responses #mce-success-response {
+	color:#fff;
+}
+#mce-responses #mce-error-response {
+	color:red;
+}
+
+#mc-embedded-subscribe {
+	margin-left:0px !important;
+}
+
+
 @media (max-width: 767px) {
 	div.shipping-icon {
 		display:none;
@@ -33,3 +45,4 @@ h2.product-title > a {
 		display:none;
 	}
 }
+

@@ -52,16 +52,16 @@
 
 @Html.Partial("_ProductBreadcrumb", Model.Breadcrumb)
 
-<div class="page product-details-page panel panel-default form-panel">
+<div class="page product-details-page panel panel-default form-panel"  itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
 
     <div class="panel-heading">
-        <h3>@Model.Name</h3>
+        <h3 itemprop="name">@Model.Name</h3>
     </div>
     <div class="panel-body">
         @Html.Widget("productdetails_top")
         @using (Html.BeginRouteForm("Product", new { SeName = Model.SeName }, FormMethod.Post, new { id = "product-details-form" }))
         {
-            <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+            <div>
                 <div class=" product-essential">
                     @Html.Widget("productdetails_before_pictures")
                     <!--product pictures-->

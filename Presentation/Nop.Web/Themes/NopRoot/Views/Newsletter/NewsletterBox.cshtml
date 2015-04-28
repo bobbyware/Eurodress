@@ -1,50 +1,83 @@
-﻿@model NewsletterBoxModel
-@using Nop.Web.Models.Newsletter;
+﻿<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	/*#mc_embed_signup {
+		background: #fff;
+		clear: left;
+		font: 14px Helvetica,Arial,sans-serif;
+	}*/
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
 
-        @*<strong>@T("Newsletter.Title")</strong>*@
-    
-        <div id="newsletter-subscribe-block" class="newsletter-subscribe-block">
-            <h5>@T("Newsletter.Subscribe"):</h5>
-            <div class="newsletter-email">
-                @Html.TextBoxFor(x => x.NewsletterEmail, new { id = "newsletter-email", @class = "form-control",  placeholder="Enter email" })
-                @Html.ValidationMessageFor(x => x.NewsletterEmail)
-            </div>
-            <div class="buttons">
-                <input type="button" value="@T("Newsletter.Button")" id="newsletter-subscribe-button" class="button-1 newsletter-subscribe-button btn btn-default" />
-                <span id="subscribe-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
-            </div>
-        </div>
-        <div id="newsletter-result-block" class="newsletter-result-block">
-        </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#newsletter-subscribe-button').click(function () {
-                
-                var email = $("#newsletter-email").val();
-                var subscribeProgress = $("#subscribe-loading-progress");
-                subscribeProgress.show();
-                $.ajax({
-                    cache: false,
-                    type: "POST",
-                    url: "@(Url.RouteUrl("SubscribeNewsletter"))",
-                    data: { "email": email },
-                    success: function (data) {
-                        subscribeProgress.hide();
-                        $("#newsletter-result-block").html(data.Result);
-                         if (data.Success) {
-                            $('#newsletter-subscribe-block').hide();
-                            $('#newsletter-result-block').show();
-                         }
-                         else {
-                            $('#newsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
-                         }
-                    },
-                    error:function (xhr, ajaxOptions, thrownError){
-                        alert('Failed to subscribe.');
-                        subscribeProgress.hide();
-                    }  
-                });                
-                return false;
-            });
-        });
-    </script>
+	
+	<form action="//eurodress.us10.list-manage.com/subscribe/post?u=130e2f7a92dda6a45282a99f4&amp;id=71640366c8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>	
+		<div id="newsletter-subscribe-block" class="newsletter-subscribe-block">
+			<h5>@T("Newsletter.Subscribe"):</h5>
+			<div class="newsletter-email">				
+				<input type="email" value="" name="EMAIL" class="email form-control" placeholder="Enter email" id="mce-EMAIL">
+			</div>
+			<div id="mce-responses" class="clear">
+				<div class="response" id="mce-error-response" style="display:none"></div>
+				<div class="response" id="mce-success-response" style="display:none"></div>
+			</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+			<div style="position: absolute; left: -5000px;"><input type="text" name="b_130e2f7a92dda6a45282a99f4_71640366c8" tabindex="-1" value=""></div>
+			<div class="clear buttons">
+				<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button button-1 newsletter-subscribe-button btn btn-default">
+			</div>
+		</div>
+</form>
+	
+	<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+	<script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
+	<!--End mc_embed_signup-->
+
+	@*@model NewsletterBoxModel
+		@using Nop.Web.Models.Newsletter;
+
+
+				<div id="newsletter-subscribe-block" class="newsletter-subscribe-block">
+					<h5>@T("Newsletter.Subscribe"):</h5>
+					<div class="newsletter-email">
+						@Html.TextBoxFor(x => x.NewsletterEmail, new { id = "newsletter-email", @class = "form-control",  placeholder="Enter email" })
+						@Html.ValidationMessageFor(x => x.NewsletterEmail)
+					</div>
+					<div class="buttons">
+						<input type="button" value="@T("Newsletter.Button")" id="newsletter-subscribe-button" class="button-1 newsletter-subscribe-button btn btn-default" />
+						<span id="subscribe-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
+					</div>
+				</div>
+				<div id="newsletter-result-block" class="newsletter-result-block">
+				</div>
+			<script type="text/javascript">
+				$(document).ready(function () {
+					$('#newsletter-subscribe-button').click(function () {
+
+						var email = $("#newsletter-email").val();
+						var subscribeProgress = $("#subscribe-loading-progress");
+						subscribeProgress.show();
+						$.ajax({
+							cache: false,
+							type: "POST",
+							url: "@(Url.RouteUrl("SubscribeNewsletter"))",
+							data: { "email": email },
+							success: function (data) {
+								subscribeProgress.hide();
+								$("#newsletter-result-block").html(data.Result);
+								 if (data.Success) {
+									$('#newsletter-subscribe-block').hide();
+									$('#newsletter-result-block').show();
+								 }
+								 else {
+									$('#newsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
+								 }
+							},
+							error:function (xhr, ajaxOptions, thrownError){
+								alert('Failed to subscribe.');
+								subscribeProgress.hide();
+							}
+						});
+						return false;
+					});
+				});
+			</script>*@
