@@ -87,7 +87,7 @@ namespace Nop.Web.Extensions
             bool preparePriceModel = true, bool preparePictureModel = true,
             int? productThumbPictureSize = null, bool prepareSpecificationAttributes = false,
             bool forceRedirectionAfterAddingToCart = false)
-        {
+        {			
             if (products == null)
                 throw new ArgumentNullException("products");
 
@@ -318,23 +318,34 @@ namespace Nop.Web.Extensions
 
                     //If a size has been set in the view, we use it in priority
                     int pictureSize = productThumbPictureSize.HasValue ? productThumbPictureSize.Value : mediaSettings.ProductThumbPictureSize;
-                    //prepare picture model
-                    var defaultProductPictureCacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_DEFAULTPICTURE_MODEL_KEY, product.Id, pictureSize, true, workContext.WorkingLanguage.Id, webHelper.IsCurrentConnectionSecured(), storeContext.CurrentStore.Id);
-                    model.DefaultPictureModel = cacheManager.Get(defaultProductPictureCacheKey, () =>
-                    {
-                        var picture = pictureService.GetPicturesByProductId(product.Id, 1).FirstOrDefault();
-                        var pictureModel = new PictureModel
-                        {
-                            ImageUrl = pictureService.GetPictureUrl(picture, pictureSize),
-                            FullSizeImageUrl = pictureService.GetPictureUrl(picture),
-                            Title = string.Format(localizationService.GetResource("Media.Product.ImageLinkTitleFormat"), model.Name),
-                            AlternateText = string.Format(localizationService.GetResource("Media.Product.ImageAlternateTextFormat"), model.Name)
-                        };
-                        return pictureModel;
-                    });
+                    
+					//prepare picture model
 
-                    #endregion
-                }
+					var productPicturesCacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_PICTURES_MODEL_KEY, product.Id, pictureSize, true, workContext.WorkingLanguage.Id, webHelper.IsCurrentConnectionSecured(), storeContext.CurrentStore.Id);
+					
+					model.PictureModels = cacheManager.Get(productPicturesCacheKey, () =>
+					{
+						var pictures = pictureService.GetPicturesByProductId(product.Id);
+						var productPictures = productService.GetProductPicturesByProductId(product.Id);
+						
+								
+						var pictureModels = pictures.Select(picture => new PictureModel
+						{
+							ImageUrl = pictureService.GetPictureUrl(picture, pictureSize),
+							FullSizeImageUrl = pictureService.GetPictureUrl(picture),
+							Title = string.Format(localizationService.GetResource("Media.Product.ImageLinkTitleFormat"), model.Name),
+							AlternateText = string.Format(localizationService.GetResource("Media.Product.ImageAlternateTextFormat"), model.Name), 
+							ExplodeImagesInCategoryView = productService.GetProductPictureByPictureId(product.Id, picture.Id).ExplodeImageInCategoryView
+							
+					});
+						return pictureModels.ToList();
+					});
+
+					model.DefaultPictureModel = model.PictureModels.FirstOrDefault() ?? new PictureModel();					
+					
+
+					#endregion
+				}
 
                 //specs
                 if (prepareSpecificationAttributes)
@@ -353,6 +364,22 @@ namespace Nop.Web.Extensions
                 };
 
                 models.Add(model);
+
+				// explode images in category view => add productmodel for each image.
+				if ( model.PictureModels.Count > 1)
+				{
+					
+					var otherPictures = model.PictureModels.Skip(1);
+					foreach (var picture in otherPictures)
+					{
+						
+                        if (picture.ExplodeImagesInCategoryView) {
+							var clonedModel = model.ShallowCopy();
+							clonedModel.DefaultPictureModel = picture;
+							models.Add(clonedModel);
+						}
+					}
+				}
             }
             return models;
         }
