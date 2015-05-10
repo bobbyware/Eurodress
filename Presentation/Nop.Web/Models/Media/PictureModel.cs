@@ -11,5 +11,7 @@ namespace Nop.Web.Models.Media
         public string Title { get; set; }
 
         public string AlternateText { get; set; }
+
+		public bool ExplodeImagesInCategoryView { get; set; }
     }
 }

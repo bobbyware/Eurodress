@@ -386,12 +386,18 @@ namespace Nop.Services.Catalog
         /// <param name="productPictureId">Product picture identifier</param>
         /// <returns>Product picture</returns>
         ProductPicture GetProductPictureById(int productPictureId);
+		/// <summary>
+		/// Gets a product picture
+		/// </summary>
+		/// <param name="productPictureId">The picture identifier</param>
+		/// <returns>Product picture</returns>
+		ProductPicture GetProductPictureByPictureId(int productId, int pictureId);
 
-        /// <summary>
-        /// Inserts a product picture
-        /// </summary>
-        /// <param name="productPicture">Product picture</param>
-        void InsertProductPicture(ProductPicture productPicture);
+		/// <summary>
+		/// Inserts a product picture
+		/// </summary>
+		/// <param name="productPicture">Product picture</param>
+		void InsertProductPicture(ProductPicture productPicture);
 
         /// <summary>
         /// Updates a product picture

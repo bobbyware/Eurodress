@@ -2400,6 +2400,8 @@
   <LocaleResource Name="Admin.Catalog.Products.Fields.Published.Hint">
     <Value>Check to publish this product (visible in store). Uncheck to unpublish (product not available in store).</Value>
   </LocaleResource>
+	
+	
   <LocaleResource Name="Admin.Catalog.Products.Fields.RecurringCycleLength">
     <Value>Cycle length</Value>
   </LocaleResource>
@@ -2682,6 +2684,12 @@
   <LocaleResource Name="Admin.Catalog.Products.Pictures.Fields.Picture.Hint">
     <Value>Choose a picture to upload. If the picture size exceeds your stores max image size setting, it will be automatically resized.</Value>
   </LocaleResource>
+	<LocalResource Name="Admin.Catalog.Products.Pictures.Fields.ExplodeImageInCategoryView">
+		<Value>Explode image in category view</Value>
+	</LocalResource>
+	<LocalResource Name="Admin.Catalog.Products.Pictures.Fields.ExplodeImageInCategoryView.Hint">
+		<Value>Check to show this photo as the product in the Category view as well.</Value>
+	</LocalResource>
   <LocaleResource Name="Admin.Catalog.Products.Pictures.SaveBeforeEdit">
     <Value>You need to save the product before you can upload pictures for this product page.</Value>
   </LocaleResource>

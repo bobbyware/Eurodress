@@ -1723,12 +1723,31 @@ namespace Nop.Services.Catalog
             return productPictures;
         }
 
-        /// <summary>
-        /// Gets a product picture
-        /// </summary>
-        /// <param name="productPictureId">Product picture identifier</param>
-        /// <returns>Product picture</returns>
-        public virtual ProductPicture GetProductPictureById(int productPictureId)
+		/// <summary>
+		/// Gets a product picture
+		/// </summary>
+		/// <param name="productPictureId">Picture identifier</param>
+		/// <returns>Product picture</returns>
+		public virtual ProductPicture GetProductPictureByPictureId(int productId, int pictureId)
+		{
+			if (productId == 0 || pictureId == 0)
+				return null;
+
+			var query = from pp in _productPictureRepository.Table
+						where pp.ProductId == productId && pp.PictureId == pictureId
+						orderby pp.DisplayOrder
+						select pp;
+			var productPictures = query.ToList();
+
+			return productPictures.FirstOrDefault();
+		}
+
+		/// <summary>
+		/// Gets a product picture
+		/// </summary>
+		/// <param name="productPictureId">Product picture identifier</param>
+		/// <returns>Product picture</returns>
+		public virtual ProductPicture GetProductPictureById(int productPictureId)
         {
             if (productPictureId == 0)
                 return null;

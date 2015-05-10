@@ -604,12 +604,25 @@ namespace Nop.Web.Controllers
 
                 if (attribute.ShouldHaveValues())
                 {
-                    //values
-                    //var attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
-					var attributeCombinations = product.ProductAttributeCombinations.Where(c => c.StockQuantity > 0).Select(c => _productAttributeParser.ParseProductAttributeValues(c.AttributesXml).FirstOrDefault()).ToList().OrderBy(a => a.Name);
-					if (attributeCombinations.Count() > 0)
+					//values
+					IList<ProductAttributeValue> attributeValues = new List<ProductAttributeValue>();
+	                if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes)
+	                {
+		                IOrderedEnumerable<ProductAttributeValue> attributeCombinations =
+			                product.ProductAttributeCombinations.Where(c => c.StockQuantity > 0)
+				                .Select(c => _productAttributeParser.ParseProductAttributeValues(c.AttributesXml).FirstOrDefault())
+				                .ToList()
+				                .OrderBy(a => a.Name);
+		                attributeValues = attributeCombinations.ToList();
+	                }
+	                else
+	                {
+		                attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
+	                }
+
+	                if (attributeValues.Any())
 					{
-						foreach (var attributeValue in attributeCombinations)
+						foreach (var attributeValue in attributeValues)
 						{							
 							var valueModel = new ProductDetailsModel.ProductAttributeValueModel
 							{

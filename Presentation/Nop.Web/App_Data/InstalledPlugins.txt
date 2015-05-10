@@ -27,3 +27,4 @@ Widgets.GoogleAnalytics
 Widgets.NivoSlider
 Widgets.HtmlBlock
 Misc.MailChimp
+Payments.eWay

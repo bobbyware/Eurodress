@@ -338,6 +338,9 @@ namespace Nop.Admin.Models.Catalog
         public DateTime? CreatedOn { get; set; }
         [NopResourceDisplayName("Admin.Catalog.Products.Fields.UpdatedOn")]
         public DateTime? UpdatedOn { get; set; }
+		
+		[NopResourceDisplayName("Admin.Catalog.Products.Fields.ExplodeImagesInCategoryView")]
+		public bool ExplodeImagesInCategoryView { get; set; }
 
 
         public string PrimaryStoreCurrencyCode { get; set; }
@@ -482,6 +485,9 @@ namespace Nop.Admin.Models.Catalog
 
             [NopResourceDisplayName("Admin.Catalog.Products.Pictures.Fields.DisplayOrder")]
             public int DisplayOrder { get; set; }
+
+			[NopResourceDisplayName("Admin.Catalog.Products.Pictures.Fields.ExplodeImageInCategoryView")]
+			public bool ExplodeImageInCategoryView { get; set; }
         }
         
         public partial class ProductCategoryModel : BaseNopEntityModel

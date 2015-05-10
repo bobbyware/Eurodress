@@ -519,8 +519,8 @@ namespace Nop.Web.Controllers
                             FullSizeImageUrl = _pictureService.GetPictureUrl(picture),
                             ImageUrl = _pictureService.GetPictureUrl(picture, pictureSize),
                             Title = string.Format(_localizationService.GetResource("Media.Category.ImageLinkTitleFormat"), subCatModel.Name),
-                            AlternateText = string.Format(_localizationService.GetResource("Media.Category.ImageAlternateTextFormat"), subCatModel.Name)
-                        };
+                            AlternateText = string.Format(_localizationService.GetResource("Media.Category.ImageAlternateTextFormat"), subCatModel.Name)							
+						};
                         return pictureModel;
                     });
 
@@ -576,6 +576,7 @@ namespace Nop.Web.Controllers
                 //include subcategories
                 categoryIds.AddRange(GetChildCategoryIds(category.Id));
             }
+			
             //products
             IList<int> alreadyFilteredSpecOptionIds = model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_webHelper);
             IList<int> filterableSpecificationAttributeOptionIds;

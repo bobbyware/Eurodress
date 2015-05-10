@@ -22,11 +22,16 @@ namespace Nop.Core.Domain.Catalog
         /// Gets or sets the display order
         /// </summary>
         public int DisplayOrder { get; set; }
-        
-        /// <summary>
-        /// Gets the picture
-        /// </summary>
-        public virtual Picture Picture { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether a link to the product should be shown for this image in category view
+		/// </summary>
+		public bool ExplodeImageInCategoryView { get; set; }
+
+		/// <summary>
+		/// Gets the picture
+		/// </summary>
+		public virtual Picture Picture { get; set; }
 
         /// <summary>
         /// Gets the product

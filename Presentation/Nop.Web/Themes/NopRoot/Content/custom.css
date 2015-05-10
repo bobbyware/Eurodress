@@ -52,6 +52,10 @@ div.panel-body ul li {
 	list-style-type:inherit !important;
 	margin-left:inherit !important;
 }
+div.panel-body ul.option-list {
+	list-style-type:none !important;
+}
+
 
 div.full-description td,
 div.full-description th {

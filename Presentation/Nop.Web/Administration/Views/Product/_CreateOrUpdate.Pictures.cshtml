@@ -35,7 +35,8 @@
                                 id: "Id",
                                 fields: {
                                     PictureUrl: {editable: false, type: "string" },
-                                    DisplayOrder: {editable: true, type: "number" }
+                                    DisplayOrder: {editable: true, type: "number" },
+                                    ExplodeImageInCategoryView: { editable: true, type: "boolean" },
                                 }
                             }
                         },
@@ -70,11 +71,19 @@
                         template: '<a href="#=PictureUrl#" target="_blank"><img alt="#=PictureId#" src="#=PictureUrl#" width="150" /><a/>',
                         width: 200
                     }, {
-                        field: "DisplayOrder",
-                        title: "@T("Admin.Catalog.Products.Pictures.Fields.DisplayOrder")",
-                        //integer format
-                        format: "{0:0}",
-                        width: 150
+                    	field: "DisplayOrder",
+                    	title: "@T("Admin.Catalog.Products.Pictures.Fields.DisplayOrder")",
+                    	//integer format
+                    	format: "{0:0}",
+                    	width: 100
+                    }
+					, {
+						field: "ExplodeImageInCategoryView",
+						title: "@T("Admin.Catalog.Products.Pictures.Fields.ExplodeImageInCategoryView")",                    	
+						width: 150,
+						headerAttributes: { style: "text-align:center" },
+						attributes: { style: "text-align:center" },
+						template: '<img src="@Url.Content("~/Administration/Content/images/")active-#=ExplodeImageInCategoryView#.gif" />'
                     }, {
                         command: [{
                             name: "edit",
@@ -97,7 +106,9 @@
         $(document).ready(function () {
             $('#addProductPicture').click(function () {
                 var pictureId = $("#@Html.FieldIdFor(model => model.AddPictureModel.PictureId)").val();
-                var displayOrder = $("#@Html.FieldIdFor(model => model.AddPictureModel.DisplayOrder)").val();
+            	var displayOrder = $("#@Html.FieldIdFor(model => model.AddPictureModel.DisplayOrder)").val();
+            	//var showOnProductPage = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.ShowOnProductPage)").is(':checked');
+            	var explodeImageInCategoryView = $("#@Html.FieldIdFor(model => model.AddPictureModel.ExplodeImageInCategoryView)").is(':checked');
                 
                 if (pictureId == 0) {
                     alert('Upload picture first');
@@ -109,7 +120,7 @@
                     cache:false,
                     type: "POST",
                     url: "@(Url.Action("ProductPictureAdd", "Product"))",
-                    data: { "pictureId": pictureId, "displayOrder": displayOrder, "productId": @Model.Id },
+                	data: { "pictureId": pictureId, "displayOrder": displayOrder, "productId": @Model.Id, "explodeImageInCategoryView" : explodeImageInCategoryView },
                     success: function (data) {
                         var grid = $("#productpictures-grid");
                         grid.data('kendoGrid').dataSource.read();
@@ -142,12 +153,21 @@
                 @Html.ValidationMessageFor(model => model.AddPictureModel.DisplayOrder)
             </td>
         </tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.NopLabelFor(model => model.AddPictureModel.ExplodeImageInCategoryView):
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.AddPictureModel.ExplodeImageInCategoryView)
+				@Html.ValidationMessageFor(model => model.AddPictureModel.ExplodeImageInCategoryView)
+			</td>
+		</tr>
         <tr>
             <td colspan="2" align="left">
                 <input type="button" id="addProductPicture" class="k-button" value="@T("Admin.Catalog.Products.Pictures.AddButton")" />
             </td>
         </tr>
-    </table>
+	</table>	
 }
 else
 {

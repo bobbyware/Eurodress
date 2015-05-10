@@ -13,9 +13,16 @@ namespace Nop.Web.Models.Catalog
             DefaultPictureModel = new PictureModel();
             SpecificationAttributeModels = new List<ProductSpecificationModel>();
             ReviewOverviewModel = new ProductReviewOverviewModel();
+			PictureModels = new List<PictureModel>();
+			
         }
 
-        public string Name { get; set; }
+		public ProductOverviewModel ShallowCopy()
+		{
+			return (ProductOverviewModel)this.MemberwiseClone();
+		}
+
+		public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
         public string SeName { get; set; }
@@ -24,6 +31,8 @@ namespace Nop.Web.Models.Catalog
         public ProductPriceModel ProductPrice { get; set; }
         //picture
         public PictureModel DefaultPictureModel { get; set; }
+
+		public IList<PictureModel> PictureModels { get; set; }
         //specification attributes
         public IList<ProductSpecificationModel> SpecificationAttributeModels { get; set; }
         //price

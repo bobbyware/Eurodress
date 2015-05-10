@@ -651,8 +651,10 @@ namespace Nop.Admin.Controllers
                 model.UnlimitedDownloads = true;
                 model.IsShipEnabled = true;
                 model.AllowCustomerReviews = true;
-                model.Published = true;
+                model.Published = true;				
                 model.VisibleIndividually = true;
+
+				model.ExplodeImagesInCategoryView = false;
             }
         }
 
@@ -2126,7 +2128,7 @@ namespace Nop.Admin.Controllers
 
         #region Product pictures
 
-        public ActionResult ProductPictureAdd(int pictureId, int displayOrder, int productId)
+        public ActionResult ProductPictureAdd(int pictureId, int displayOrder, int productId, bool explodeImageInCategoryView)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
                 return AccessDeniedView();
@@ -2147,6 +2149,7 @@ namespace Nop.Admin.Controllers
                 PictureId = pictureId,
                 ProductId = productId,
                 DisplayOrder = displayOrder,
+				ExplodeImageInCategoryView = explodeImageInCategoryView
             });
 
             _pictureService.SetSeoFilename(pictureId, _pictureService.GetPictureSeName(product.Name));
@@ -2178,7 +2181,8 @@ namespace Nop.Admin.Controllers
                     ProductId = x.ProductId,
                     PictureId = x.PictureId,
                     PictureUrl = _pictureService.GetPictureUrl(x.PictureId),
-                    DisplayOrder = x.DisplayOrder
+                    DisplayOrder = x.DisplayOrder,
+					ExplodeImageInCategoryView = x.ExplodeImageInCategoryView
                 })
                 .ToList();
 
@@ -2212,6 +2216,8 @@ namespace Nop.Admin.Controllers
             }
 
             productPicture.DisplayOrder = model.DisplayOrder;
+			productPicture.ExplodeImageInCategoryView = model.ExplodeImageInCategoryView;
+
             _productService.UpdateProductPicture(productPicture);
 
             return new NullJsonResult();
