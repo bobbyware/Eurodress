@@ -28,3 +28,4 @@ Widgets.NivoSlider
 Widgets.HtmlBlock
 Misc.MailChimp
 Payments.eWay
+BrainStation.QuickView

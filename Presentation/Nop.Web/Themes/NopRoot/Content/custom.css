@@ -62,3 +62,7 @@ div.full-description th {
 	padding-left:10px !important;	
 	text-align:left;	
 }
+
+.quick-view-product-details-slide-image img {
+	height: auto !important;
+}

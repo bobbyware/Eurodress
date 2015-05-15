@@ -140,11 +140,11 @@
 				</div>*@
 				<div class="buttons">
 					@*<input type="button" value="@T("Products.Details")" class="button-1 product-box-detail-button" onclick="setLocation('@Url.RouteUrl("Product", new { SeName = Model.SeName })')" />*@
-					@if (!Model.ProductPrice.DisableBuyButton)
+					@*@if (!Model.ProductPrice.DisableBuyButton)
 					{
                         <input type="button" class="btn btn-sm btn-primary" value="@(Model.ProductPrice.AvailableForPreOrder ? T("ShoppingCart.PreOrder") : T("ShoppingCart.AddToCart"))"  onclick="AjaxCart.addproducttocart_catalog('@addtocartlink    ');return false;" />
 
-					}
+					}*@
 				</div>
 				@Html.Widget("productbox_add_info")
 			</div>
