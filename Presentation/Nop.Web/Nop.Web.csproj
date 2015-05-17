@@ -1934,6 +1934,7 @@
     <Content Include="Themes\NopRoot\Content\images\ajax_loader_large.gif" />
     <Content Include="Themes\NopRoot\Content\images\ajax_loader_small.gif" />
     <Content Include="Themes\NopRoot\Content\images\arrow-up.png" />
+    <Content Include="Themes\NopRoot\Content\images\background_home.jpg" />
     <Content Include="Themes\NopRoot\Content\images\bbeditor-button-bg.gif" />
     <Content Include="Themes\NopRoot\Content\images\black-picker.png" />
     <Content Include="Themes\NopRoot\Content\images\blue-picker.png" />
@@ -2209,6 +2210,7 @@
     <Content Include="Themes\NopRoot\Views\Topic\TopicBlock.cshtml" />
     <Content Include="Themes\NopRoot\Views\Topic\TopicDetails.cshtml" />
     <Content Include="Themes\NopRoot\Views\Web.config" />
+    <Content Include="Themes\NopRoot\Views\Shared\_ColumnsOneHomepage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\bin\" />

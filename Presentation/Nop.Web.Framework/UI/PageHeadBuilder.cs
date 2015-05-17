@@ -218,7 +218,8 @@ namespace Nop.Web.Framework.UI
 
             if (_scriptParts.Count == 0)
                 return "";
-            
+
+	        BundleTable.EnableOptimizations = true;   
             if (!bundleFiles.HasValue)
             {
                 //use setting if no value is specified
@@ -239,8 +240,13 @@ namespace Nop.Web.Framework.UI
 
 
                 var result = new StringBuilder();
-
-                if (partsToBundle.Length > 0)
+				//parts to do not bundle
+				foreach (var path in partsToDontBundle)
+				{
+					result.AppendFormat("<script src=\"{0}\" type=\"text/javascript\"></script>", urlHelper.Content(path));
+					result.Append(Environment.NewLine);
+				}
+				if (partsToBundle.Length > 0)
                 {
                     //IMPORTANT: Do not use bundling in web farms or Windows Azure
                     string bundleVirtualPath = GetBundleVirtualPath("~/bundles/scripts/", ".js", partsToBundle);
@@ -269,12 +275,7 @@ namespace Nop.Web.Framework.UI
                     result.AppendLine(Scripts.Render(bundleVirtualPath).ToString());
                 }
 
-                //parts to do not bundle
-                foreach (var path in partsToDontBundle)
-                {
-                    result.AppendFormat("<script src=\"{0}\" type=\"text/javascript\"></script>", urlHelper.Content(path));
-                    result.Append(Environment.NewLine);
-                }
+                
                 return result.ToString();
             }
             else

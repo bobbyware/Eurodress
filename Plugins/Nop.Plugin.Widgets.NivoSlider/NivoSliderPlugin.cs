@@ -33,7 +33,7 @@ namespace Nop.Plugin.Widgets.NivoSlider
         /// <returns>Widget zones</returns>
         public IList<string> GetWidgetZones()
         {
-            return new List<string> { "home_page_top" };
+            return new List<string> { "main_column_before" };
         }
 
         /// <summary>

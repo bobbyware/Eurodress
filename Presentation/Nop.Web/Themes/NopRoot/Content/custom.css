@@ -32,6 +32,10 @@ h2.product-title > a {
 	color:red;
 }
 
+.required.email {
+	color: rgb(85, 85, 85);
+}
+
 #mc-embedded-subscribe {
 	margin-left:0px !important;
 }
@@ -40,6 +44,9 @@ h2.product-title > a {
 @media (max-width: 767px) {
 	div.shipping-icon {
 		display:none;
+	}
+	a.quick-view-plugin-btn {
+		display: none;
 	}
 	div.html-block {		
 		display:none;
@@ -65,4 +72,19 @@ div.full-description th {
 
 .quick-view-product-details-slide-image img {
 	height: auto !important;
+}
+
+body {
+	background: url('images/background_home.jpg') no-repeat ;
+	background-size:cover;
+	background-position-x:center;
+}
+div.navbar,
+div.navbar div {
+	background: #eee !important;
+}
+
+div.container div.panel > div.panel-heading,
+div.container div.panel > div.panel-body {
+	background-color: #eee !important;
 }
